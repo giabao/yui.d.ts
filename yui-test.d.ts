@@ -6,6 +6,20 @@
 declare module YUITest {
     interface YUITestStatic{
         Assert: IAssert
+        Case: TestCase
+    }
+    interface TestCase{
+        DEFAULT_WAIT: number
+        callback(...args: any[]): Function
+        resume(segment?: Function): void
+        wait(segment?: Function, delay?: number): void
+        waitFor(condition: Function, segment: Function, timeout?: number, increment?: number): void
+        assert(condition: boolean, message: string): void
+        fail(message?: string): void
+        init(): void
+        destroy(): void
+        setUp(): void
+        tearDown(): void
     }
     interface IAssert{
         fail(message?: string)
