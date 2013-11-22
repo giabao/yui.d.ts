@@ -7,6 +7,52 @@ declare module YUITest {
     interface YUITestStatic{
         Assert: IAssert
         Case: TestCase
+        Runner: TestRunner
+    }
+    interface EventTarget{
+        attach(type: string, listener: Function): void
+        subscribe(type: string, listener: Function): void
+        fire(event: Object): void
+        fire(event: string): void
+        detach(type: string, listener: Function): void
+        unsubscribe(type: string, listener: Function): void
+    }
+    interface TestRunner extends EventTarget{
+        TEST_CASE_BEGIN_EVENT: string
+        TEST_CASE_COMPLETE_EVENT: string
+        TEST_SUITE_BEGIN_EVENT: string
+        TEST_SUITE_COMPLETE_EVENT: string
+        TEST_PASS_EVENT: string
+        TEST_FAIL_EVENT: string
+        ERROR_EVENT: string
+        TEST_IGNORE_EVENT: string
+        COMPLETE_EVENT: string
+        BEGIN_EVENT: string
+
+        getName(): string
+        setName(name: string): void
+
+        add(testObject: TestSuite): void
+        add(testObject: TestCase): void
+
+        clear(): void
+        isWaiting(): boolean
+        isRunning(): boolean
+
+        getResults(format?: Function): any //Object|String
+        getCoverage(format?: Function): any //Object|String
+        callback(...args: any[]): Function
+        resume(segment?: Function): void
+        run(options?: Object): void
+        run(options?: boolean): void
+    }
+    interface TestSuite{
+        name: string
+//        items: any[] //Array of test suites and test cases.
+        add(testObject: TestSuite): void
+        add(testObject: TestCase): void
+        setUp(): void
+        tearDown(): void
     }
     interface TestCase{
         DEFAULT_WAIT: number
