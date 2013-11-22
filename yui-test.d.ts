@@ -55,6 +55,7 @@ declare module YUITest {
         tearDown(): void
     }
     interface TestCase{
+        (template: Object): void
         DEFAULT_WAIT: number
         callback(...args: any[]): Function
         resume(segment?: Function): void
